@@ -8,7 +8,7 @@ public class Endereco {
     private String cep;
     private String complemento;
     private String tipo;
-    private Pet pet;
+    private Animal animal;
 
     public String getNomeRua() {
         return nomeRua;
@@ -50,12 +50,12 @@ public class Endereco {
         this.tipo = tipo;
     }
 
-    public Pet getPet() {
-        return pet;
+    public Animal getPet() {
+        return animal;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPet(Animal animal) {
+        this.animal = animal;
     }
 
     public void solicitarCep() {

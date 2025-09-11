@@ -1,9 +1,11 @@
 package entities;
 
+import javax.swing.JOptionPane;
+
 public class Dono {
     private String nome;
     private String cpf;
-    private Pet pet;
+    private Animal animal;
     private Endereco endereco;
 
     public String getNome() {
@@ -22,12 +24,12 @@ public class Dono {
         this.cpf = cpf;
     }
 
-    public Pet getPet() {
-        return pet;
+    public Animal getPet() {
+        return animal;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPet(Animal animal) {
+        this.animal = animal;
     }
 
     public Endereco getEndereco() {
@@ -44,7 +46,7 @@ public class Dono {
         while (!entradaValida) {
             entradaNome = JOptionPane.showInputDialog("Digite seu nome completo: ");
             if (entradaNome.isBlank() || !entradaNome.matches("[a-zA-Z\\s]+")) {
-                JOptionPane.showMessageDialog(null, "É obrigatório informar seu nome.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Informe seu nome corretamente.", "ERRO", JOptionPane.WARNING_MESSAGE);
             } else {
                 setNome(entradaNome);
                 entradaValida = true;
@@ -52,12 +54,21 @@ public class Dono {
         }
     }
 
-    public void setCpf() {
+    public void solicitarCpf() {
         String entradaCpf;
         boolean entradaValida = false;
         while (!entradaValida) {
             entradaCpf = JOptionPane.showInputDialog("Digite seu CPF completo: ");
-            if (entradaCpf
+            if (entradaCpf == null || entradaCpf.isBlank()) {
+                JOptionPane.showMessageDialog(null, "É obrigatório informar seu CPF.", "ERRO", JOptionPane.WARNING_MESSAGE);
+            } else {
+                entradaCpf = entradaCpf.replaceAll("\\D", "");
+                if (!entradaCpf.matches("\\d{11}")) {
+                    JOptionPane.showMessageDialog(null, "O CPF tem exatamente 11 dígitos.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    setCpf(entradaCpf);
+                    entradaValida = true;
+                }
             }
         }
     }

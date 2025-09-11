@@ -1,7 +1,10 @@
 package entities;
 
 public enum TipoAnimal {
-    CACHORRO,
-    GATO,
-    COELHO;
+    MAMIFEROSDOMESTICOS,
+    MAMIFEROSDEPRODUCAO,
+    AVES,
+    REPTEIS,
+    PEIXES,
+    OUTROS;
 }
