@@ -1,8 +1,9 @@
 package entities;
 
 import javax.swing.JOptionPane;
+import java.util.Objects;
 
-public class Dono {
+public class Cliente {
     private String nome;
     private String cpf;
     private Animal animal;
@@ -71,5 +72,23 @@ public class Dono {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(nome, cliente.nome) && Objects.equals(cpf, cliente.cpf) && Objects.equals(animal, cliente.animal) && Objects.equals(endereco, cliente.endereco);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, cpf, animal, endereco);
+    }
+
+    @Override
+    public String toString() {
+        String mensagem = "";
+        return mensagem;
     }
 }
