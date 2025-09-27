@@ -59,7 +59,7 @@ public class Animal {
             String entradaNome = JOptionPane.showInputDialog("Digite o nome do seu animal: ");
             if (entradaNome == null || entradaNome.isBlank()) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do animal para facilitar no gerenciamento interno de consultas", "ERRO", JOptionPane.WARNING_MESSAGE);
-            } else if (!entradaNome.matches("^[A-Za-zÀ-ÿ\\s]+$")) {
+            } else if (!entradaNome.matches("^[A-Za-zÀ-ÿ\\s\\-']+$")) {
                 JOptionPane.showMessageDialog(null, "O nome do animal deve conter apenas letras.", "ERRO", JOptionPane.WARNING_MESSAGE);
             } else {
                 setNome(entradaNome);
@@ -78,20 +78,24 @@ public class Animal {
     }
 
     public void solicitarIdade() {
-        boolean entradaValida = false;
-        while (!entradaValida) {
+        while (true) {
             String entradaIdade = JOptionPane.showInputDialog("Digite a idade do seu animal: (caso não tenha ainda o primeiro ano de vida, digite 0)");
             if (entradaIdade == null) {
-                JOptionPane.showMessageDialog(null, "É obrigatório informar a idade do animal.", "ERRO", JOptionPane.WARNING_MESSAGE);
-                return;
+                int confirm = JOptionPane.showConfirmDialog(null, "Você deseja cancelar o cadastro da idade?", "Confirmação", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    setIdade(0);
+                    break;
+                } else {
+                    continue;
+                }
             }
             try {
-                int entradaIdade2 = Integer.parseInt(entradaIdade);
-                if (entradaIdade2 < 0 || entradaIdade2 > 100) {
+                int idade = Integer.parseInt(entradaIdade);
+                if (idade < 0 || idade > 100) {
                     JOptionPane.showMessageDialog(null, "Digite a idade do seu animal sendo entre 0 e 100 anos.", "ERRO", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    setIdade(entradaIdade2);
-                    entradaValida = true;
+                    setIdade(idade);
+                    break;
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Erro de entrada, digite a idade corretamente.", "ERRO", JOptionPane.WARNING_MESSAGE);
@@ -142,6 +146,29 @@ public class Animal {
         }
     }
 
+    public void solicitarSexoAnimal() {
+        String entradaSexo;
+        boolean entradaValida = false;
+        while (!entradaValida) {
+            entradaSexo = JOptionPane.showInputDialog("""
+                    Sexo do animal:
+                    [1] Para macho
+                    [2] Para fêmea""");
+            switch (entradaSexo.trim()) {
+                case "1":
+                    setSexoAnimal(SexoAnimal.MACHO);
+                    entradaValida = true;
+                    break;
+                case "2":
+                    setSexoAnimal(SexoAnimal.FEMEA);
+                    entradaValida = true;
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida, digite uma das opções [1] para macho ou [2] para fêmea");
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -156,21 +183,20 @@ public class Animal {
 
     @Override
     public String toString() {
-        String mensagem = "Nome do animal cadastrado: " + getNome()
-                + "\n Idade do animal cadastrado: " + getIdade()
-                + "\n Classificação do animal cadastrado: " + getTipoAnimal()
-                + "\n Sexo do animal cadastrado: " + getSexoAnimal()
-                + "\n Identificador do animal cadastrado: " + getIdAnimal();
-        return mensagem;
+        return "Nome do animal cadastrado: " + getNome()
+                + "\n Idade do animal: " + getIdade()
+                + "\n Classificação: " + getTipoAnimal()
+                + "\n Sexo do animal: " + getSexoAnimal()
+                + "\n Identificador do animal: " + getIdAnimal();
     }
 
-    public Animal(String nome, int idade, TipoAnimal tipoAnimal, SexoAnimal sexoAnimal) {
+    public Animal() {
+        solicitarNome();
         criarId();
-        this.nome = nome;
-        this.idade = idade;
-        this.tipoAnimal = tipoAnimal;
-        this.sexoAnimal = sexoAnimal;
-        JOptionPane.showMessageDialog(null, "Confirme os dados: " + "\n" + toString());
+        solicitarIdade();
+        solicitarTipoAnimal();
+        solicitarSexoAnimal();
+        JOptionPane.showMessageDialog(null, toString());
     }
 }
 

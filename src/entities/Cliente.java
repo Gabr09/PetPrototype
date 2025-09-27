@@ -2,12 +2,18 @@ package entities;
 
 import javax.swing.JOptionPane;
 import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+
+import services.Servico;
 
 public class Cliente {
     private String nome;
     private String cpf;
     private Animal animal;
     private Endereco endereco;
+    private List<Servico> servicosContratados = new ArrayList<>();
+    private List<Animal> animaisAtendimento = new ArrayList<>();
 
     public String getNome() {
         return nome;
@@ -25,11 +31,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public Animal getPet() {
+    public Animal getAnimal() {
         return animal;
     }
 
-    public void setPet(Animal animal) {
+    public void setAnimal(Animal animal) {
         this.animal = animal;
     }
 
@@ -88,7 +94,55 @@ public class Cliente {
 
     @Override
     public String toString() {
-        String mensagem = "";
-        return mensagem;
+        return "<html><b>CADASTRO REALIZADO COM SUCESSO!<b/></html>" +
+               "Lembrando " + getNome()+  " caso seja necessário realizar alteração cadastral, dirija-se até a recepção.";
+    }
+
+    public void contratarServico() {
+        boolean ofertaServico = true;
+        while (ofertaServico) {
+            Servico servico = new Servico();
+            servico.atribuicaoValorServico();
+            servico.atribuicaoValorServico();
+            servicosContratados.add(servico);
+            int respostaCliente = JOptionPane.showConfirmDialog(null, "Deseja solicitar um novo serviço?", "NOVA SOLICITAÇÃO", JOptionPane.YES_NO_OPTION);
+            if (respostaCliente != JOptionPane.YES_OPTION) {
+                ofertaServico = false;
+                servicosContratados.forEach(services -> {
+                    JOptionPane.showMessageDialog(null, "Serviço contratado: " + services.getNomeServico()
+                    + "\nDescrição do serviço solicitado: " + services.getDescricaoServico()
+                    + "\nData do agendamento: " + services.getDataAgendamento()
+                    + "\nValor total: " + calcValorServicos());
+                });
+            }
+        }
+    }
+
+    public double calcValorServicos() {
+        double total = 0.0;
+        for (Servico servico : servicosContratados) {
+            total += servico.getValorServico();
+        }
+        return total;
+    }
+
+    public void cadastrarAnimais() {
+        boolean ofertarCadastro = false;
+        while (!ofertarCadastro) {
+            Animal animal = new Animal();
+            animaisAtendimento.add(animal);
+            int respostaCliente = JOptionPane.showConfirmDialog(null, "Deseja cadastrar/solicitar atendimento para outro animal? ", "CADASTRAR NOVO", JOptionPane.YES_NO_OPTION);
+            if (respostaCliente == JOptionPane.NO_OPTION) {
+                ofertarCadastro = true;
+            }
+        }
+    }
+    public Cliente() {
+        solicitarNome();
+        solicitarCpf();
+        this.endereco = new Endereco();
+        JOptionPane.showMessageDialog(null, toString());
+        cadastrarAnimais();
+        contratarServico();
     }
 }

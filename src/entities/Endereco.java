@@ -1,6 +1,7 @@
 package entities;
 
 import javax.swing.JOptionPane;
+import java.util.Objects;
 
 public class Endereco {
     private String nomeRua;
@@ -8,7 +9,6 @@ public class Endereco {
     private String cep;
     private String complemento;
     private String tipo;
-    private Animal animal;
 
     public String getNomeRua() {
         return nomeRua;
@@ -50,14 +50,6 @@ public class Endereco {
         this.tipo = tipo;
     }
 
-    public Animal getPet() {
-        return animal;
-    }
-
-    public void setPet(Animal animal) {
-        this.animal = animal;
-    }
-
     public void solicitarCep() {
         boolean entradaValida = false;
         while (!entradaValida) {
@@ -92,7 +84,7 @@ public class Endereco {
                 JOptionPane.showMessageDialog(null, "Preencha o campo.", "ERRO", JOptionPane.WARNING_MESSAGE);
             } else if (entradaNumero.equalsIgnoreCase("SN")) {
                 entradaNumero = "Sem número";
-                setNomeRua(entradaNumero);
+                setNumero(entradaNumero);
                 entradaValida = true;
             } else {
                 setNumero(entradaNumero);
@@ -135,5 +127,45 @@ public class Endereco {
                 }
             }
         }
+    }
+
+    public void solicitarComplemento() {
+        String entradaComplemento = JOptionPane.showInputDialog("Digite o complemento: ");
+        if (entradaComplemento == null || entradaComplemento.trim().isBlank()) {
+            entradaComplemento = "Sem complemento";
+            setComplemento(entradaComplemento);
+            } else {
+            setComplemento(entradaComplemento);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Endereco endereco = (Endereco) o;
+        return Objects.equals(nomeRua, endereco.nomeRua) && Objects.equals(numero, endereco.numero) && Objects.equals(cep, endereco.cep) && Objects.equals(complemento, endereco.complemento) && Objects.equals(tipo, endereco.tipo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nomeRua, numero, cep, complemento, tipo);
+    }
+
+    @Override
+    public String toString() {
+        return "Endereço cadastrado! "
+                +"\n CEP: " + getCep()
+                + "\nRua: " + getNomeRua()
+                + "\nNumero: " + getNumero()
+                + "\nComplemento: " + getComplemento();
+    }
+
+    public Endereco() {
+        solicitarCep();
+        solicitarNomeRua();
+        solicitarNumero();
+        solicitarTipo();
+        solicitarComplemento();
+        JOptionPane.showMessageDialog(null, toString());
     }
 }
