@@ -10,6 +10,7 @@ import services.Servico;
 public class Cliente {
     private String nome;
     private String cpf;
+    private String numeroCelular;
     private Animal animal;
     private Endereco endereco;
     private List<Servico> servicosContratados = new ArrayList<>();
@@ -47,6 +48,14 @@ public class Cliente {
         this.endereco = endereco;
     }
 
+    public String getNumeroCelular() {
+        return numeroCelular;
+    }
+
+    public void setNumeroCelular(String numeroCelular) {
+        this.numeroCelular = numeroCelular;
+    }
+
     public void solicitarNome() {
         String entradaNome;
         boolean entradaValida = false;
@@ -75,6 +84,24 @@ public class Cliente {
                 } else {
                     setCpf(entradaCpf);
                     entradaValida = true;
+                }
+            }
+        }
+    }
+
+    public void solicitarNumeroCelular() {
+        boolean entradaNumero = false;
+        while(!entradaNumero) {
+            String entradaNumeroCelular = JOptionPane.showInputDialog("Digite o número do celular junto ao DDD");
+            if (entradaNumeroCelular == null || entradaNumeroCelular.isBlank()) {
+                JOptionPane.showMessageDialog(null, "É obrigatório informar um número de contato", "ERRO", JOptionPane.WARNING_MESSAGE);
+            } else {
+                entradaNumeroCelular = entradaNumeroCelular.replaceAll("\\D", "");
+                if (!entradaNumeroCelular.matches("\\d{11}")) {
+                    JOptionPane.showMessageDialog(null, "Número de telefone incorreto", "ERRO", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    setNumeroCelular(entradaNumeroCelular);
+                    entradaNumero = true;
                 }
             }
         }
@@ -140,6 +167,7 @@ public class Cliente {
     public Cliente() {
         solicitarNome();
         solicitarCpf();
+        solicitarNumeroCelular();
         this.endereco = new Endereco();
         JOptionPane.showMessageDialog(null, toString());
         cadastrarAnimais();
