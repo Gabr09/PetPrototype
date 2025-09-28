@@ -62,7 +62,7 @@ public class Cliente {
         while (!entradaValida) {
             entradaNome = JOptionPane.showInputDialog("Digite seu nome completo: ");
             if (entradaNome.isBlank() || !entradaNome.matches("[a-zA-Z\\s]+")) {
-                JOptionPane.showMessageDialog(null, "Informe seu nome corretamente.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Informe seu nome corretamente.", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 setNome(entradaNome);
                 entradaValida = true;
@@ -76,11 +76,11 @@ public class Cliente {
         while (!entradaValida) {
             entradaCpf = JOptionPane.showInputDialog("Digite seu CPF completo: ");
             if (entradaCpf == null || entradaCpf.isBlank()) {
-                JOptionPane.showMessageDialog(null, "É obrigatório informar seu CPF.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "É obrigatório informar seu CPF.", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 entradaCpf = entradaCpf.replaceAll("\\D", "");
                 if (!entradaCpf.matches("\\d{11}")) {
-                    JOptionPane.showMessageDialog(null, "O CPF tem exatamente 11 dígitos.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "O CPF tem exatamente 11 dígitos.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 } else {
                     setCpf(entradaCpf);
                     entradaValida = true;
@@ -94,11 +94,11 @@ public class Cliente {
         while(!entradaNumero) {
             String entradaNumeroCelular = JOptionPane.showInputDialog("Digite o número do celular junto ao DDD");
             if (entradaNumeroCelular == null || entradaNumeroCelular.isBlank()) {
-                JOptionPane.showMessageDialog(null, "É obrigatório informar um número de contato", "ERRO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "É obrigatório informar um número de contato", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 entradaNumeroCelular = entradaNumeroCelular.replaceAll("\\D", "");
                 if (!entradaNumeroCelular.matches("\\d{11}")) {
-                    JOptionPane.showMessageDialog(null, "Número de telefone incorreto", "ERRO", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Número de telefone incorreto", "ERRO", JOptionPane.ERROR_MESSAGE);
                 } else {
                     setNumeroCelular(entradaNumeroCelular);
                     entradaNumero = true;

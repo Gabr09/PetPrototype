@@ -92,13 +92,13 @@ public class Animal {
             try {
                 int idade = Integer.parseInt(entradaIdade);
                 if (idade < 0 || idade > 100) {
-                    JOptionPane.showMessageDialog(null, "Digite a idade do seu animal sendo entre 0 e 100 anos.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Digite a idade do seu animal sendo entre 0 e 100 anos.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 } else {
                     setIdade(idade);
                     break;
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Erro de entrada, digite a idade corretamente.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erro de entrada, digite a idade corretamente.", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -141,7 +141,7 @@ public class Animal {
                     entradaValida = true;
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Você só pode escolher entre as opções acima.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Você só pode escolher entre as opções acima.", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

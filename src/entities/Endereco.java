@@ -68,7 +68,7 @@ public class Endereco {
         while (!entradaValida) {
             String entradaNomeRua = JOptionPane.showInputDialog("Digite o nome da rua: ");
             if (entradaNomeRua == null || entradaNomeRua.isBlank()) {
-                JOptionPane.showMessageDialog(null, "Você deve obrigatoriamente informar o nome da rua para cadastrar o endereço!", "ERRO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Você deve obrigatoriamente informar o nome da rua para cadastrar o endereço!", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 setNomeRua(entradaNomeRua);
                 entradaValida = true;
@@ -81,7 +81,7 @@ public class Endereco {
         while(!entradaValida) {
             String entradaNumero = JOptionPane.showInputDialog("Digite o número ou [SN] para sem número ");
             if (entradaNumero.isBlank()) {
-                JOptionPane.showMessageDialog(null, "Preencha o campo.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Preencha o campo.", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else if (entradaNumero.equalsIgnoreCase("SN")) {
                 entradaNumero = "Sem número";
                 setNumero(entradaNumero);
@@ -104,7 +104,7 @@ public class Endereco {
                     [3] Outro
   """);
             if (entradaTipo == null || entradaTipo.isBlank()) {
-                JOptionPane.showMessageDialog(null, "Preencha corretamente o campo solicitado.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Preencha corretamente o campo solicitado.", "ERRO", JOptionPane.ERROR_MESSAGE);
             } else {
                 switch (entradaTipo.trim()){
                     case "1":
@@ -123,7 +123,7 @@ public class Endereco {
                         setTipo(entradaTipo);
                         break;
                     default:
-                        JOptionPane.showMessageDialog(null, "Opção inválida, direite entre 1, 2, ou 3.", "ERRO", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Opção inválida, direite entre 1, 2, ou 3.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
